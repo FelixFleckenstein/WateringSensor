@@ -16,8 +16,8 @@
 /***********************************************
  * CONFIG PART BEGIN                           *
  ***********************************************/
-#define WLAN_SSID "straightAhead"					      	//WLAN SSID
-#define WLAN_KEY "uLVBcdiOq60Qzo9n2GVqs2"		    	//WLAN Password
+#define WLAN_SSID "xxx"				//WLAN SSID
+#define WLAN_KEY  "xxx"		    	//WLAN Password
 #define SERVER_ADDRESS "http://192.169.1.19:8080"	//Address of server backend including port
 
 #define DELAY 1		  		// Delay between sensor readings
