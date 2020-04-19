@@ -5,8 +5,8 @@
  * License    : GPL2                           *
  *                                             *
  * Description:                                *
- * 		Reads values from DH11 and moisture-   *
- *		sensors and sends it to server         *
+ *     Reads values from DH11 and moisture-    *
+ *     sensors and sends it to server          *
  ***********************************************/
 
 #include <ESP8266HTTPClient.h>
@@ -16,18 +16,18 @@
 /***********************************************
  * CONFIG PART BEGIN                           *
  ***********************************************/
-#define WLAN_SSID "xxx"				//WLAN SSID
-#define WLAN_KEY  "xxx"		    	//WLAN Password
-#define SERVER_ADDRESS "http://192.169.1.19:8080"	//Address of server backend including port
+#define WLAN_SSID "xxx"                             //WLAN SSID
+#define WLAN_KEY  "xxx"                             //WLAN Password
+#define SERVER_ADDRESS "http://192.169.1.19:8080"   //Address of server backend including port
 
-#define DELAY 1		  		// Delay between sensor readings
+#define DELAY 1                                     // Delay between sensor readings
  
-#define MOISTURE_IN		A0		//Analog Pin 0 for reading the moisture-sensor value
-#define MOISTURE_POWER	14		//D5 for powering moisture-sensor
-#define DHT11_IN		0		//D3 pin for reading the temperature and humidity values
-#define DHT11_POWER		5		//D1 for powering DHT11-sensor
+#define MOISTURE_IN		A0                  //Analog Pin 0 for reading the moisture-sensor value
+#define MOISTURE_POWER	14                          //D5 for powering moisture-sensor
+#define DHT11_IN		0                   //D3 pin for reading the temperature and humidity values
+#define DHT11_POWER		5                   //D1 for powering DHT11-sensor
 
-#define DRY 816			//measured dry value during calibration (measured in air) 
+#define DRY 816              //measured dry value during calibration (measured in air) 
 #define WET 350			//measured wet value during calibration (measured in water)
 
 /***********************************************
