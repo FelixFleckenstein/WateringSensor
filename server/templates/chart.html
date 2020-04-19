@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+<script>
+window.onload = function () {
+
+var options = {
+	animationEnabled: true,
+	title:{
+		text: "Feuchtigkeit Kräuterbeet: {{legend}}%"
+	},
+	axisX:{
+		valueFormatString: "HH mm",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true
+		}
+	},
+	axisY: {
+		title: "Feuchtigkeit",
+		includeZero: true,
+		maximum: 100,
+		minimum: 0,
+		valueFormatString: "##0.00",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true,
+			labelFormatter: function(e) {
+				return CanvasJS.formatNumber(e.value, "##0.00");
+			}
+		}
+	},
+	data: [{
+		type: "area",
+		xValueFormatString: "HH mm",
+		yValueFormatString: "##0.00",
+		dataPoints: [{% for item in values %}
+						{ x: {{item[0]}}, y: {{item[1]}} },
+					  {% endfor %}
+					  ]
+		
+		
+			
+	}]
+};
+
+var options2 = {
+	animationEnabled: true,
+	title:{
+		text: "Temperatur: {{legendTemp}}°"
+	},
+	axisX:{
+		valueFormatString: "HH mm",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true
+		}
+	},
+	axisY: {
+		title: "Temperatur",
+		includeZero: true,
+		maximum: 50,
+		minimum: -10,
+		valueFormatString: "##0.00",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true,
+			labelFormatter: function(e) {
+				return CanvasJS.formatNumber(e.value, "##0.00");
+			}
+		}
+	},
+	data: [{
+		type: "area",
+		xValueFormatString: "HH mm",
+		yValueFormatString: "##0.00",
+		dataPoints: [{% for item in valuesTemp %}
+						{ x: {{item[0]}}, y: {{item[1]}} },
+					  {% endfor %}
+					  ]
+		
+		
+			
+	}]
+};
+
+var options3 = {
+	animationEnabled: true,
+	title:{
+		text: "Luftfeuchtigkeit: {{legendAir}}%"
+	},
+	axisX:{
+		valueFormatString: "HH mm",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true
+		}
+	},
+	axisY: {
+		title: "Luftfeuchtigkeit",
+		includeZero: true,
+		maximum: 100,
+		minimum: 0,
+		valueFormatString: "##0.00",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true,
+			labelFormatter: function(e) {
+				return CanvasJS.formatNumber(e.value, "##0.00");
+			}
+		}
+	},
+	data: [{
+		type: "area",
+		xValueFormatString: "HH mm",
+		yValueFormatString: "##0.00",
+		dataPoints: [{% for item in valuesAir %}
+						{ x: {{item[0]}}, y: {{item[1]}} },
+					  {% endfor %}
+					  ]
+		
+		
+			
+	}]
+};
+
+$("#chartContainer").CanvasJSChart(options);
+$("#chartContainer2").CanvasJSChart(options2);
+$("#chartContainer3").CanvasJSChart(options3);
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+<div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</body>
+</html>

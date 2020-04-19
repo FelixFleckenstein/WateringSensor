@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+
+	<style>
+		table {
+		  border-collapse: collapse;
+		}
+
+		table, th, td {
+		  border: 1px solid black;
+		}
+	</style>
+
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
+	<script>
+		window.fn = {};
+
+		window.fn.toggleMenu = function () {
+		  document.getElementById('appSplitter').right.toggle();
+		};
+
+		window.fn.loadView = function (index) {
+		  document.getElementById('appTabbar').setActiveTab(index);
+		  document.getElementById('sidemenu').close();
+		};
+
+		window.fn.loadLink = function (url) {
+		  window.open(url, '_blank');
+		};
+
+		window.fn.pushPage = function (page, anim) {
+		  if (anim) {
+		    document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+		  } else {
+		    document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+		  }
+		};
+	</script>
+
+<script>
+function load1() {
+
+	var options = {
+	animationEnabled: true,
+	title:{
+		text: "Feuchtigkeit Kräuterbeet: {{legend}}%"
+	},
+	axisX:{
+		valueFormatString: "HH mm",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true
+		}
+	},
+	axisY: {
+		title: "Feuchtigkeit",
+		includeZero: true,
+		maximum: 100,
+		minimum: 0,
+		valueFormatString: "##0.00",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true,
+			labelFormatter: function(e) {
+				return CanvasJS.formatNumber(e.value, "##0.00");
+			}
+		}
+	},
+	data: [{
+		type: "area",
+		xValueFormatString: "HH mm",
+		yValueFormatString: "##0.00",
+		dataPoints: [{% for item in values %}
+						{ x: {{item[0]}}, y: {{item[1]}} },
+					  {% endfor %}
+					  ]
+		
+		
+			
+	}]
+
+};
+$("#chartContainer").CanvasJSChart(options);
+}
+function load2() {
+	var options2 = {
+		animationEnabled: true,
+		title:{
+		text: "Temperatur: {{legendTemp}}°"
+	},
+	axisX:{
+		valueFormatString: "HH mm",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true
+		}
+	},
+	axisY: {
+		title: "Temperatur",
+		includeZero: true,
+		maximum: 50,
+		minimum: -10,
+		valueFormatString: "##0.00",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true,
+			labelFormatter: function(e) {
+				return CanvasJS.formatNumber(e.value, "##0.00");
+			}
+		}
+	},
+	data: [{
+		type: "area",
+		xValueFormatString: "HH mm",
+		yValueFormatString: "##0.00",
+		dataPoints: [{% for item in valuesTemp %}
+						{ x: {{item[0]}}, y: {{item[1]}} },
+					  {% endfor %}
+					  ]
+		
+		
+			
+	}]
+};
+$("#chartContainer2").CanvasJSChart(options2);
+}
+function load3() {
+var options3 = {
+	animationEnabled: true,
+	title:{
+		text: "Luftfeuchtigkeit: {{legendAir}}%"
+	},
+	axisX:{
+		valueFormatString: "HH mm",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true
+		}
+	},
+	axisY: {
+		title: "Luftfeuchtigkeit",
+		includeZero: true,
+		maximum: 100,
+		minimum: 0,
+		valueFormatString: "##0.00",
+		crosshair: {
+			enabled: true,
+			snapToDataPoint: true,
+			labelFormatter: function(e) {
+				return CanvasJS.formatNumber(e.value, "##0.00");
+			}
+		}
+	},
+	data: [{
+		type: "area",
+		xValueFormatString: "HH mm",
+		yValueFormatString: "##0.00",
+		dataPoints: [{% for item in valuesAir %}
+						{ x: {{item[0]}}, y: {{item[1]}} },
+					  {% endfor %}
+					  ]
+		
+		
+			
+	}]
+};
+$("#chartContainer3").CanvasJSChart(options3);
+}
+</script>
+</head>
+<body>
+	
+<ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
+  <ons-page>
+    <ons-splitter id="appSplitter">
+      <ons-splitter-content page="main.html"></ons-splitter-content>
+    </ons-splitter>
+  </ons-page>
+</ons-navigator>
+
+<template id="main.html">
+	  <ons-page>
+	    <p class="intro">
+	      <center><h1><b>Kräuterbeet-App</b></h1></center>
+	    </p>
+	
+	
+	<ons-row>
+		<ons-col>
+			<ons-card onclick="fn.pushPage({'id': 'site1.html', 'title': 'Bodenfeuchte'})">
+				<div class="title">Bodenfeuchte</div>
+				<div class="content"><h1>{{aktFeuchte}}%</h1></div>
+			</ons-card>
+		</ons-col>
+		<ons-col>
+			<ons-card onclick="fn.pushPage({'id': 'site2.html', 'title': 'Temperatur'})">
+			      <div class="title">Temperatur</div>
+			      <div class="content"><h1>{{aktTemp}}°</h1></div>
+			    </ons-card>	
+		</ons-col>
+	</ons-row>
+	<ons-row>
+		<ons-col>
+			<ons-card onclick="fn.pushPage({'id': 'site3.html', 'title': 'Luftfeuchtigkeit'})">
+	     		 <div class="title">Luftfeuchtigkeit</div>
+	      		<div class="content"><h1>{{aktLuft}}%</h1></div>
+	    </ons-card>
+		</ons-col>
+		<ons-col>
+			
+		</ons-col>
+	</ons-row>
+
+	    
+	    
+	    
+
+	    <style>
+	      .intro {
+		text-align: center;
+		padding: 0 20px;
+		margin-top: 40px;
+	      }
+
+	      ons-card {
+		cursor: pointer;
+		color: #333;
+	      }
+
+	      .card__title,
+	      .card--material__title {
+		font-size: 20px;
+	      }
+	    </style>
+	  </ons-page>
+</template>
+
+<template id="site1.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Home</ons-back-button>
+      </div>
+      <div class="center"></div>
+    </ons-toolbar>
+
+
+	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+    <script>
+      ons.getScriptPage().onInit = function () {
+        this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+	load1();
+      }
+    </script>
+  </ons-page>
+</template>
+
+<template id="site2.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Home</ons-back-button>
+      </div>
+      <div class="center"></div>
+    </ons-toolbar>
+
+	<table style="width: 100%;">
+		<tr style="background-color: #cccccc;">
+			<td></td>
+			<td>{{valuesTempDays[0][0]}}</td>
+			<td>{{valuesTempDays[1][0]}}</td>
+			<td>{{valuesTempDays[2][0]}}</td>
+			<td>{{valuesTempDays[3][0]}}</td>
+			<td>{{valuesTempDays[4][0]}}</td>
+			<td>{{valuesTempDays[5][0]}}</td>
+			
+		</tr>
+		<tr>
+			<td>max</td>
+			<td>{{valuesTempDays[0][1]}}</td>
+			<td>{{valuesTempDays[1][1]}}</td>
+			<td>{{valuesTempDays[2][1]}}</td>
+			<td>{{valuesTempDays[3][1]}}</td>
+			<td>{{valuesTempDays[4][1]}}</td>
+			<td>{{valuesTempDays[5][1]}}</td>
+			
+		</tr>
+		<tr>
+			<td>min</td>
+			<td>{{valuesTempDays[0][2]}}</td>
+			<td>{{valuesTempDays[1][2]}}</td>
+			<td>{{valuesTempDays[2][2]}}</td>
+			<td>{{valuesTempDays[3][2]}}</td>
+			<td>{{valuesTempDays[4][2]}}</td>
+			<td>{{valuesTempDays[5][2]}}</td>
+			
+		</tr>
+	</table>
+	<br/><br/>
+
+	<div id="chartContainer2" style="height: 370px; width: 100%;"></div>
+
+    <script>
+      ons.getScriptPage().onInit = function () {
+        this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+	load2();
+      }
+    </script>
+  </ons-page>
+</template>
+
+<template id="site3.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-back-button>Home</ons-back-button>
+      </div>
+      <div class="center"></div>
+    </ons-toolbar>
+
+	<div id="chartContainer3" style="height: 370px; width: 100%;"></div>
+
+    <script>
+      ons.getScriptPage().onInit = function () {
+        this.querySelector('ons-toolbar div.center').textContent = this.data.title;
+	load3();
+      }
+    </script>
+  </ons-page>
+</template>
+
+</body>
+</html>

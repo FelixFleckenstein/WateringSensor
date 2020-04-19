@@ -1,0 +1,15 @@
+.leftMenu {
+	float: left;
+	background-color: #00FF00;
+	border-right: solid black 3px;
+	height: 100%;
+	width: 75px;
+}
+
+.clearfix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}

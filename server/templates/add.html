@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Fitness-Diary</title>
+    </head>
+    <body>
+        <h1 style="padding: 0px; margin: 0px;">Adding Body-Weights</h1>
+		<form action="{{ prefix }}/add" method="post" style="padding: 0px; margin: 0px;" novalidate>
+        {{ form.hidden_tag() }}
+        <p style="padding: 0px; margin: 0px;"
+            {{ form.day.label }}<br>
+            {{ form.day(size=32) }}
+        </p>
+        <p style="padding: 0px; margin: 0px;">
+            {{ form.weight.label }}<br>
+            {{ form.weight(size=32) }}
+        </p>
+        <p style="padding: 0px; margin: 0px;">{{ form.submit() }}</p>
+    </form>
+    </body>
+</html>

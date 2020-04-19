@@ -1,0 +1,1 @@
+D:\Tools\Python3\python.exe WateringSensor.py
